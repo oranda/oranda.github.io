@@ -1,0 +1,10 @@
+---
+layout: page
+title: About
+permalink: /about/
+---
+
+I'm James McCabe, an independent software developer for over 20 years. [More about me](https://www.linkedin.com/in/james-mccabe-3645a13).
+
+You can find the source code for the Scala-bility blog on [GitHub](https://github.com/oranda).
+
