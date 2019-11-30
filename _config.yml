@@ -28,7 +28,7 @@ twitter_username: jjtmccabe
 github_username:  oranda
 
 # Build settings
-theme: minima
+theme: jekyll-theme-clean-blog
 plugins:
   - jekyll-feed
 
