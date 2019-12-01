@@ -1,8 +1,6 @@
 ---
 published: true
 ---
-## Load Testing with Gatling
-
 Recently, I've been working with an organization that had a huge increase in traffic due to mobile phones, and needed to determine how its legacy application would handle the millions of users flooding into its servers. They were accustomed to using JMeter, as it's a full-featured mature Java application for load testing and also useful for functional testing.
 
 However, it turns out that when the numbers get really big, you have to figure out how to deal with the load of JMeter itself! You [end up distributing the JMeter application across several servers](http://jmeter.apache.org/usermanual/remote-test.html). Surely this shouldn't be necessary? Also, because it's so UI-oriented, the "scripts" you use for testing are big clunky XML files. You might prefer writing them in a modern programming language, giving you the option to integrate them into a general network management system.
