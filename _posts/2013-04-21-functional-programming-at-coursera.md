@@ -1,4 +1,5 @@
 ---
+title: Functional Programming at Coursera
 published: true
 ---
 Many professions are based on the idea that you do a big amount of learning upfront (university) and then only small updates will be necessary throughout the rest of your career. However, in software development technology advances so quickly that your whole career is really one of continuous learning. To further this end, MOOCs (Massive Open Online Courses) have been become popular, especially over the past year or two. I don't see them as replacing traditional universities. However, they are a very useful resource, both for reminding yourself what you learnt in university and introducing you to new paradigms as they become popular in your field of expertise.
