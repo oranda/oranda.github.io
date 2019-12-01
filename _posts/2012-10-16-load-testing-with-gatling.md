@@ -19,7 +19,7 @@ val myScenario = scenario("My Sequence Of Actions")
   
 Run gatling.sh, and choose the script you want to run. After it finishes Gatling gives you a HTML page filled with graphs. Here is an example. This graph is actually showing a problem with the application under the test. The bumps in the red line mean that connections are being dropped from time to time.
 
-![gatlingGraph.png]({{site.baseurl}}/_posts/gatlingGraph.png)
+![gatlingGraph.png]({{site.baseurl}}/assets/gatlingGraph.png)
 
 
 In summary, Gatling is not as fancy as JMeter yet, but I think this is the future of load testing.
