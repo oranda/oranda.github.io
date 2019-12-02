@@ -321,36 +321,36 @@ Now for a grand overview of the web application, let's look at the directory str
 
 ```conf
 libanius-scalajs-react/  
-  **build.sbt**
+  build.sbt
   app/
     js/
       src/
         main/
           scala/
             com.oranda.libanius.scalajs/
-              **QuizScreen.scala**
+              QuizScreen.scala
       target/
     jvm/
       src/
         main/
           resources/
-            **application.conf**
+            application.conf
           scala/
             com.oranda.libanius.sprayserver/
-              **QuizScreen.scala**
-              **QuizService.scala**
-              **Server.scala**
+              QuizScreen.scala
+              QuizService.scala
+              Server.scala
       target/
     shared/
       lib/
-        **libanius-0.982.jar**
+        libanius-0.982.jar
       src/
         main/
           resources/
-            **quiz.css**
+            quiz.css
           scala/
             com.oranda.libanius.scalajs/
-              **ClientServerObjects.scala**
+              ClientServerObjects.scala
                 QuizItemReact
 ```
 
