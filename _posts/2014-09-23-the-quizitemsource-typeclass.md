@@ -9,11 +9,11 @@ While writing the Libanius quiz application, I found **typeclasses** to be very 
 ![FindQuizItem.jpg]({{site.baseurl}}/assets/FindQuizItem.jpg)
 
 
-To start with, the core model in Libanius is a simple containment hierarchy as shown in the diagram. The `Quiz` data structure contains all the information necessary to provide a stream of quiz items to a single user. It is split by topic into QuizGroups, which, for performance reasons, are further partitioned into "memory levels" according to how well the user has learned the items. The flow of a typical request then is Quiz.findQuizItem() followed by QuizGroup.findQuizItem() calls, followed by QuizGroupMemoryLevel.findQuizItem() calls.
+To start with, the core model in Libanius is a simple containment hierarchy as shown in the diagram. The `Quiz` data structure contains all the information necessary to provide a stream of quiz items to a single user. It is split by topic into `QuizGroup`s, which, for performance reasons, are further partitioned into "memory levels" according to how well the user has learned the items. The flow of a typical request then is `Quiz.findQuizItem()` followed by `QuizGroup.findQuizItem()` calls, followed by `QuizGroupMemoryLevel.findQuizItem()` calls.
 
-In practice the findQuizItem() signatures and functionality were similar but not identical. Rather than have them scattered throughout the model classes, it was desirable to put them together in a single place where the similarites could be observed and moulded, avoiding any unnecessary repetition. The same was true of other operations in the model classes. Pulling them out would also solve the problem of too much bloat in the model.
+In practice the `findQuizItem()` signatures and functionality were similar but not identical. Rather than have them scattered throughout the model classes, it was desirable to put them together in a single place where the similarites could be observed and moulded, avoiding any unnecessary repetition. The same was true of other operations in the model classes. Pulling them out would also solve the problem of too much bloat in the model.
 
-Furthermore, although the Quiz data structures are optimized for finding quiz items, I wanted to be able to extend the same action to other entities. A wide range of scenarios can be imagined:
+Furthermore, although the `Quiz` data structures are optimized for finding quiz items, I wanted to be able to extend the same action to other entities. A wide range of scenarios can be imagined:
 
 1. A Twitter feed of quotes might be seen as a mapping from speakers to quotations, which could be turned into a Who-Said-What quiz.
 2. A set of web pages with recipes could be read as a "What ingredient goes with what dish?" quiz.
@@ -21,11 +21,11 @@ Furthermore, although the Quiz data structures are optimized for finding quiz it
 4. A clever algorithm might not simply be "finding" quiz items in a store, but dynamically generating them based on previous answers. 
 5. The Quiz might not be a Scala data structure, but a database. This could be a NoSQL in-memory database like Redis or leveldb. It could also be a traditional RDBMS like Postgres accessed via Slick.
 
-What links all these cases together is that a findQuizItem() function is necessary but with a new implementation. So the immediate priority is to decouple the findQuizItem() action from the simple Quiz data structure. Notice that this action might be applied to structures that didn't even know they were supposed to be quizzes. We don't want to have to retroactively modify classes like TwitterFeed and ChatParticipant to make them "quiz aware".
+What links all these cases together is that a `findQuizItem()` function is necessary but with a new implementation. So the immediate priority is to decouple the `findQuizItem()` action from the simple Quiz data structure. Notice that this action might be applied to structures that didn't even know they were supposed to be quizzes. We don't want to have to retroactively modify classes like `TwitterFeed` and `ChatParticipant` to make them "quiz aware".
 
-If you know a lot of Java, some design patterns might occur to you here, like Adapter, Composite, or Visitor. In the Visitor pattern, in particular, you can separate out arbitary operations from the data structures and form a parallel hierarchy to run those operations. But the original data structures still have to have an accept() method defined. In Scala a more convenient alternative, graced with all the polymorphism you could ever need, is the typeclass construct. Typeclasses excel at separating out orthogonal concerns.
+If you know a lot of Java, some design patterns might occur to you here, like Adapter, Composite, or Visitor. In the Visitor pattern, in particular, you can separate out arbitary operations from the data structures and form a parallel hierarchy to run those operations. But the original data structures still have to have an `accept()` method defined. In Scala a more convenient alternative, graced with all the polymorphism you could ever need, is the typeclass construct. Typeclasses excel at separating out orthogonal concerns.
 
-Firstly a trait is defined for the typeclass with the behaviour we wish to separate out. Let's begin by calling the main function produceQuizItem() rather than findQuizItem(), to abstract it more from the implementation:
+Firstly a trait is defined for the typeclass with the behaviour we wish to separate out. Let's begin by calling the main function `produceQuizItem()` rather than `findQuizItem()`, to abstract it more from the implementation:
 
 ```scala
 trait QuizItemSource[A] {
@@ -33,7 +33,7 @@ trait QuizItemSource[A] {
 }
 ```
 
-The component could be a Quiz, a QuizGroup, a QuizGroupMemoryLevel or anything else. Instead of calling produceQuizItem() on the component, the component is passed as a parameter to the operation.
+The component could be a `Quiz`, a `QuizGroup`, a `QuizGroupMemoryLevel` or anything else. Instead of calling `produceQuizItem()` on the component, the component is passed as a parameter to the operation.
 
 Next, define some sample implementations (aka typeclass instances) for the entities (aka model components) that we already have:
 
@@ -64,15 +64,15 @@ import modelComponentsAsQuizItemSources._
 
 If you're coming from other languages, it's the use of the implicit that is at first difficult to grasp, but this is really the Scala feature that makes typeclasses convenient to use, where they are not in, say, Java. Let me explain what is happening here:
 
-Suppose in client code, the modelComponentsAsQuizItemSources has been imported as above. Now the quizGroupAsSource is implicitly in scope, among other implementations. If there is now a call to QuizItemSource.produceQuizItem(quizGroup), the compiler, seeing that quizGroup is of type QuizGroup will match qis to an implicit of type QuizItemSource[QuizGroup]: this is quizGroupAsSource, the correct implementation.
+Suppose in client code, the `modelComponentsAsQuizItemSources` has been imported as above. Now the `quizGroupAsSource` is implicitly in scope, among other implementations. If there is now a call to `QuizItemSource.produceQuizItem(quizGroup)`, the compiler, seeing that `quizGroup` is of type `QuizGroup` will match `qis` to an implicit of type `QuizItemSource[QuizGroup]`: this is `quizGroupAsSource`, the correct implementation.
 
-The great thing is that the correct QuizItemSource implementation will always be selected based on the type of entity passed to produceQuizItem, and also the context of the client, specifically the imports it has chosen. Also, we have achieved our original goal that whenever we realize we want to turn an entity into a quiz (TwitterFeed, ChatParticipant, etc.) we don't have to modify that class: instead, we add an instance of the typeclass to modelComponentsAsQuizItemSources and import it.
+The great thing is that the correct `QuizItemSource` implementation will always be selected based on the type of entity passed to `produceQuizItem`, and also the context of the client, specifically the imports it has chosen. Also, we have achieved our original goal that whenever we realize we want to turn an entity into a quiz (TwitterFeed, ChatParticipant, etc.) we don't have to modify that class: instead, we add an instance of the typeclass to `modelComponentsAsQuizItemSources` and import it.
 
 This approach is a break with OO, moving the emphasis from objects to actions. Instead of adding actions (operations) to objects, we are adding objects to an action generalization (typeclass). We can make that action as powerful as we like by continuing to add objects to it. Again, unlike in OO, those objects do not need to be custom-built to be aware of our action.
 
 That is the main work done. There are two more advanced points to cover.
 
-<span style="text-decoration: underline">Firstly</span>, it is possible to add some "syntactical sugar" to the definition of produceQuizItem() above. In this code
+<span style="text-decoration: underline">Firstly</span>, it is possible to add some "syntactical sugar" to the definition of `produceQuizItem()` above. In this code
 
 ```scala
 def produceQuizItem[A](component: A)(implicit qis: QuizItemSource[A]): Option[QuizItem] =
@@ -86,7 +86,7 @@ def produceQuizItem(A : QuizItemSource](component: A): QuizItem =
   implicitly[QuizItemSource].produceQuizItem(component)
 ```
 
-What happens is that the context bound A : QuizItemSource establishes an implicit parameter, which is then pulled out by **implicitly**. This syntax is a bit shorter, and looks shorter still if you do not need to call implicitly but are simply passing the implicit parameter down to another function.
+What happens is that the context bound `A : QuizItemSource` establishes an implicit parameter, which is then pulled out by **implicitly**. This syntax is a bit shorter, and looks shorter still if you do not need to call implicitly but are simply passing the implicit parameter down to another function.
 
 ![hardHatArea.png]({{site.baseurl}}/assets/hardHatArea.png)
 
@@ -97,7 +97,7 @@ def produceQuizItem[A](component: A)(implicit qis: QuizItemSource[A]): Option[Qu
     qis.produceQuizItem(component)
 ```
 
-Suppose a Quiz were passed in, the quizAsSource instance will be selected. You will remember this looked like this:
+Suppose a `Quiz` were passed in, the `quizAsSource` instance will be selected. You will remember this looked like this:
 
 ```scala
 implicit object quizAsSource extends QuizItemSource[Quiz] {
@@ -106,7 +106,7 @@ implicit object quizAsSource extends QuizItemSource[Quiz] {
 }
 ```
 
-However, I simplified a bit here. The original implementation did not in fact return simple quiz items in the case of a Quiz. Whenever the Quiz retrieved a quiz item from a QuizGroup, it would add some information. Specifically it would generate some "wrong choices" for the question and return that to the user to allow a multiple-choice presentation of the quiz item. So the QuizItem would be wrapped in a QuizItemViewWithChoices object. The signature had to be:
+However, I simplified a bit here. The original implementation did not in fact return simple quiz items in the case of a `Quiz`. Whenever the `Quiz` retrieved a quiz item from a `QuizGroup`, it would add some information. Specifically it would generate some "wrong choices" for the question and return that to the user to allow a multiple-choice presentation of the quiz item. So the `QuizItem` would be wrapped in a `QuizItemViewWithChoices` object. The signature had to be:
 
 ```scala
 def produceQuizItem(quiz: Quiz): Option[QuizItemViewWithChoices]} = …
@@ -120,7 +120,7 @@ trait QuizItemSource[A, C] {
 }
 ```
 
-Then the typeclass instance for Quiz will look as desired:
+Then the typeclass instance for `Quiz` will look as desired:
 
 ```scala
 implicit object quizAsSource extends QuizItemSource[Quiz, QuizItemViewWithChoices] {
@@ -137,7 +137,7 @@ def produceQuizItem[A](component: A)
   qis.produceQuizItem(component)
 ```
 
-The second type parameter for the return type is added as C:
+The second type parameter for the return type is added as `C`:
 
 ```scala
 def produceQuizItem[A, C](component: A)
@@ -145,7 +145,7 @@ def produceQuizItem[A, C](component: A)
   qis.produceQuizItem(component)
 ```
 
-C is constrained so that the return value must be compatible with QuizItem. To make QuizItemViewWithChoices compatible with QuizItem, it is not necessary to make it a subclass with lots of boilerplate as in Java. Instead an implicit conversion is defined next to the QuizItemViewWithChoices class like this:
+`C` is constrained so that the return value must be compatible with `QuizItem`. To make `QuizItemViewWithChoices` compatible with `QuizItem`, it is not necessary to make it a subclass with lots of boilerplate as in Java. Instead an implicit conversion is defined next to the `QuizItemViewWithChoices` class like this:
 
 ```scala
 object QuizItemViewWithChoices {
@@ -157,4 +157,4 @@ object QuizItemViewWithChoices {
 
 Now it all works!
 
-That ends the description of the QuizItemSource typeclass. For more examples, see the other typeclasses in the [Libanius source code](https://github.com/oranda/libanius/) such as CustomFormat and ConstructWrongChoices, which cover other concerns orthogonal to the model, or [view this excellent video tutorial by Dan Rosen](https://www.youtube.com/watch?v=sVMES4RZF-8).
+That ends the description of the `QuizItemSource` typeclass. For more examples, see the other typeclasses in the [Libanius source code](https://github.com/oranda/libanius/) such as `CustomFormat` and `ConstructWrongChoices`, which cover other concerns orthogonal to the model, or [view this excellent video tutorial by Dan Rosen](https://www.youtube.com/watch?v=sVMES4RZF-8).
