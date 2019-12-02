@@ -12,7 +12,11 @@ I finally got a bit of spare time to tighten up the JavaScript in [Libanius-Play
 
 The AngularJS controller has a services layer to fetch data from the Scala back-end. Then it updates the page. The nice thing about it is that I don't have to update variables in the web page one by one: I can just **bind** variables in the web page to attributes in the model. This is achieved in the HTML using AngularJS tags like ng-model and the use of curly braces like this: 
 
-    <span id="prompt-word">{% raw %}{{ quizData.prompt }}{% endraw %}</span>
+    <span id="prompt-word">
+    
+    {% raw %}{{ quizData.prompt }}{% endraw %}
+    
+    </span>
 
 There are a number of variables like this scattered through the HTML, but they can all be updated at once in a single line of JavaScript if the Play backend returns a JSON structure. (The data structure can be defined as a case class in Scala on the server, and will be dynamically mirrored as a JavaScript structure on the client-side without the need to map attributes manually.) Here is a simplified version of what happens in the JavaScript controller after the server has processed a user response: basically it returns a new quiz item. 
 
