@@ -43,6 +43,7 @@ object MergeFasta {
     // The algorithm's code will go here.
   }
 }
+```
 
 main is the entry point. (The Scala extends App syntax also works, but the documentation recommends not using it.) The first thing any Spark program needs to do is get a reference to a SparkContext so it can send computations to the Spark execution environment.
 
