@@ -162,5 +162,5 @@ After running everything again, the statistics breakdown looks like this:
 
 So, thanks to caching, the time has been nearly halved.
 
-There are still many optimizations possible and perhaps you can think of a better algorithm entirely. However, hopefully this post has shown how Spark can be useful for parallelizing the solution to a simple problem. Again, the full code can be found here.
+There are still many optimizations possible and perhaps you can think of a better algorithm entirely. However, hopefully this post has shown how Spark can be useful for parallelizing the solution to a simple problem. Again, the full code can be found [here](https://github.com/oranda/fastamerge).
 
