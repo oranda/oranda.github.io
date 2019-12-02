@@ -70,7 +70,7 @@ Notice that `span` is a Scala method (the Scalatags library has to be imported).
 > fastOptJS 
 ```
 
-A good thing about the Scala.js compiler is that it keeps the target JavaScript small by eliminating any code from included libraries that is not used. To stop this from happening on the entry point itself in `QuizScreen`, it is necessary to use the `@JSExport` annotation both on the object and the main method. This guarantees that main() will be callable from JavaScript. 
+A good thing about the Scala.js compiler is that it keeps the target JavaScript small by eliminating any code from included libraries that is not used. To stop this from happening on the entry point itself in `QuizScreen`, it is necessary to use the `@JSExport` annotation both on the object and the `main` method. This guarantees that `main()` will be callable from JavaScript. 
 
 So now we have seen the React way and the Scala.js way. How do we combine them? A good option is to use the [scalajs-react](https://github.com/japgolly/scalajs-react%3Escalajs-react) library from David Barri. Now the ScoreText component looks like this:
 
@@ -82,7 +82,7 @@ val ScoreText = ReactComponentB[String]("ScoreText")
 
 Compare this with the JSX version. The Scala code is more concise. Notice that the `render()` method is present. It's also possible to use other React lifecycle methods if necessary, like `componentDidMount()` for initializing the component.
 
-Notice also that it uses a Scala span. A specialized version of Scalatags is used here. At first the extra symbols look intimidating, but just remember that < is used for tags and ^ is used for attributes, and they are imported like this:
+Notice also that it uses a Scala `span`. A specialized version of Scalatags is used here. At first the extra symbols look intimidating, but just remember that `<` is used for tags and `^` is used for attributes, and they are imported like this:
 
 ```scala
 import japgolly.scalajs.react.vdom.prefix_<^._
@@ -219,7 +219,7 @@ get {
 }
 ```
 
-The QuizScreen mentioned here is not the `QuizScreen` on the client-side that is described above. In fact, it is a server-side `QuizScreen` that makes a call to the client-side `QuizScreen`. Like this:
+The `QuizScreen` mentioned here is not the `QuizScreen` on the client-side that is described above. In fact, it is a _server-side_ `QuizScreen` that makes a call to the client-side `QuizScreen`. Like this:
 
 ```scala
 object QuizScreen {
@@ -253,7 +253,7 @@ def main(): Unit = {
 
 Also notice in the skeleton above, there are two included JavaScript libraries:
 
-- `app-fastopt.js`: In a Scala.js application, the `*-fastopt.js` file is the final output of the fastOptJS task, containing the JavaScript code that has been generated from your Scala code.
+- `app-fastopt.js`: In a Scala.js application, the `*-fastopt.js` file is the final output of the `fastOptJS` task, containing the JavaScript code that has been generated from your Scala code.
 - `app-jsdeps.js`: In a Scala.js application, the `*-jsdeps.js`, contains all additional JavaScript libraries: in our case, the only thing it incorporates is `react-with-addons.min.js`.
 
 Here are the essentials of the SBT configuration, which can be used as a starting point for other Scala.js projects, as it just uses the most basic dependencies, including Scalatags, upickle for serialization, and utest for testing.
@@ -319,7 +319,7 @@ So far we've been assuming that any generated JavaScript will run in a browser. 
 
 Now for a grand overview of the web application, let's look at the directory structure. You can see how slim the application really is: there are only a few key source files.
 
-
+```conf
 libanius-scalajs-react/  
   **build.sbt**
   app/
@@ -352,7 +352,7 @@ libanius-scalajs-react/
             com.oranda.libanius.scalajs/
               **ClientServerObjects.scala**
                 QuizItemReact
-
+```
 
 Again notice there is a `QuizScreen` on both the server-side and client-side: the former calls the latter.
 
