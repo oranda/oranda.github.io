@@ -12,7 +12,7 @@ I finally got a bit of spare time to tighten up the JavaScript in [Libanius-Play
 
 The AngularJS controller has a services layer to fetch data from the Scala back-end. Then it updates the page. The nice thing about it is that I don't have to update variables in the web page one by one: I can just **bind** variables in the web page to attributes in the model. This is achieved in the HTML using AngularJS tags like ng-model and the use of curly braces like this: 
 
-```html
+```javascript
 <span id="prompt-word">{{ quizData.prompt }}</span>
 ```
 
