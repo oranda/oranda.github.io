@@ -125,9 +125,9 @@ spark-submit --class "MergeFasta" --master local[4] target/scala-2.11/mergefasta
 ```
 
 
-The local[4] means that for test purposes we will just be running the program locally rather than on a real cluster, but trying to distribute the work to all 4 processors of the local machine.
+The `local[4]` means that for test purposes we will just be running the program locally rather than on a real cluster, but trying to distribute the work to all 4 processors of the local machine.
 
-When you run spark-submit it will produce a lot of output about how it is parallelizing tasks. You might prefer to see this in the Web UI later. If you want to turn off excessive stdout logging in the meantime, go to Spark's conf directory, copy log4j.properties.template to log4j.properties and set log4j.rootCategory to WARN. Then you will just see the result at the end.
+When you run `spark-submit` it will produce a lot of output about how it is parallelizing tasks. You might prefer to see this in the Web UI later. If you want to turn off excessive stdout logging in the meantime, go to Spark's `conf` directory, copy `log4j.properties.template` to `log4j.properties` and set `log4j.rootCategory` to `WARN`. Then you will just see the result at the end.
 
 The next question is: how fast was it really? The Spark history server can look at the application logs stored on the filesystem and construct a UI.  There is more about configuration here. But the main thing is to run this from the Spark root:
 
@@ -135,22 +135,22 @@ The next question is: how fast was it really? The Spark history server can look 
 ./sbin/start-history-server.sh
 ```
 
-Then navigate in your browser to http://localhost:18080/. You will see a list representing all the times you called spark-submit. Click on the latest run, the top one. Now there is a list of "jobs," the subtasks Spark parallelized and how long they took. The jobs run on RDDs will just be a few milliseconds each because of the strategy of deferring the bulk of the work to the end (lazy evaluation), where something like collect() is called.
+Then navigate in your browser to http://localhost:18080/. You will see a list representing all the times you called `spark-submit`. Click on the latest run, the top one. Now there is a list of "jobs," the subtasks Spark parallelized and how long they took. The jobs run on RDDs will just be a few milliseconds each because of the strategy of deferring the bulk of the work to the end (lazy evaluation), where something like `collect()` is called.
 
-When I first ran the code, by far the slowest thing in the list of jobs was the count() on line 78, taking 2 seconds. count() is not a transformation: it is an action and it is not lazy but eager, forcing all the previously queued operations to be performed. So it is necessary to dig a bit deeper to find out where the true bottleneck is. Clicking on the link reveals a graph of what Spark has been doing:
+When I first ran the code, by far the slowest thing in the list of jobs was the `count()` on line 78, taking 2 seconds. `count()` is not a transformation: it is an action and it is not lazy but eager, forcing all the previously queued operations to be performed. So it is necessary to dig a bit deeper to find out where the true bottleneck is. Clicking on the link reveals a graph of what Spark has been doing:
 
 ![SparkUI.png]({{site.baseurl}}/assets/SparkUI.png)
 
 
 
-This suggests that the really slow thing is the subtract operation on line 76. Let's look at that code again:
+This suggests that the really slow thing is the `subtract` operation on line 76. Let's look at that code again:
 
 ```scala
 val values: RDD[String] = matrix.values.map(_._1)
 val startingSeqs: RDD[String] = matrix.keys.subtract(values)
 ```
 
-You can see that the matrix RDD is used twice. The problem is that by default Spark is not keeping the matrix in memory, and it has to recompute it. To solve this, the cache function needs to be called just before the above code:
+You can see that the matrix RDD is used twice. The problem is that by default Spark is not keeping the matrix in memory, and it has to recompute it. To solve this, the `cache` function needs to be called just before the above code:
 
 ```scala
 matrix.cache()
