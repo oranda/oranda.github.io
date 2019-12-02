@@ -67,7 +67,7 @@ Anyway, now that we have a starting RDD in the program, the first step of the al
 
 
 | Key sequence | Other sequences|
-| ------------ |:---------------:|
+| ------------ | ---------------|
 | ATTAGACCTG   | (CCTGCCGGAA, 4), (AGACCTGCCG, 7), (GCCGGAATAC, 1)|
 | CCTGCCGGAA   | (ATTAGACCTG, 0), (AGACCTGCCG, 0), (GCCGGAATAC, 7)|
 | AGACCTGCCG   | (ATTAGACCTG, 0), (CCTGCCGGAA, 7), (GCCGGAATAC, 4)|
@@ -89,7 +89,7 @@ The next step in the algorithm is this: for each row in the matrix, eliminate al
 
 
 | Key sequence | Sequence with overlap length|
-| ------------ |:----------------------------:|
+| ------------ | ----------------------------|
 | ATTAGACCTG   | (AGACCTGCCG, 7)|
 | CCTGCCGGAA   | (GCCGGAATAC, 7)|
 | AGACCTGCCG   | (CCTGCCGGAA, 7)|
