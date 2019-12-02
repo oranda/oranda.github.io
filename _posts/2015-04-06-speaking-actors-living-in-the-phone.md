@@ -4,9 +4,9 @@ title: Speaking Actors Living in the Phone
 ---
 A Hollywood actor who couldn't speak wouldn't get far. How soon before we say the same of mobile apps?
 
-This article is a bit off-topic for this blog, but it's a bit of fun and the subject deserves more attention. Over the past 18 months the [Google Text-to-Speech API](http://en.wikipedia.org/wiki/Google_Text-to-Speech) has come a long way on the Android platform. I decided to take advantage of it in the [Libanius quiz app](https://play.google.com/store/apps/details?id=com.oranda.libanius&hl=en). For example, when the app presents a quiz item, it should speak the prompt ("Clairvoyance" in the picture).
-
 <img style="float:right" src="{{site.baseurl}}/assets/photoQuizScreen.jpg" width="215" height="240">
+
+This article is a bit off-topic for this blog, but it's a bit of fun and the subject deserves more attention. Over the past 18 months the [Google Text-to-Speech API](http://en.wikipedia.org/wiki/Google_Text-to-Speech) has come a long way on the Android platform. I decided to take advantage of it in the [Libanius quiz app](https://play.google.com/store/apps/details?id=com.oranda.libanius&hl=en). For example, when the app presents a quiz item, it should speak the prompt ("Clairvoyance" in the picture).
      
 Libanius uses the actor model from Akka to coordinate its subsystems. To see how Android can be set up to use Akka actors, see [this](http://typesafe.com/activator/template/macroid-akka-pingpong) from Typesafe, or [this](http://scala-bility.blogspot.de/2013/08/akka-in-your-pocket.html) from me. Assuming the Akka infrastructure is in place, a speaking actor can be created like this:
 
