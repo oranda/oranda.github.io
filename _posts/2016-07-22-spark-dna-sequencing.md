@@ -139,8 +139,7 @@ Then navigate in your browser to http://localhost:18080/. You will see a list re
 
 When I first ran the code, by far the slowest thing in the list of jobs was the count() on line 78, taking 2 seconds. count() is not a transformation: it is an action and it is not lazy but eager, forcing all the previously queued operations to be performed. So it is necessary to dig a bit deeper to find out where the true bottleneck is. Clicking on the link reveals a graph of what Spark has been doing:
 
-
-![]({{site.baseurl}}/assets/SparkUI.png)![SparkUI.png]({{site.baseurl}}/assets/SparkUI.png)
+![SparkUI.png]({{site.baseurl}}/assets/SparkUI.png)
 
 
 
