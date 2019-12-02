@@ -21,7 +21,7 @@ AGACCTGCCG
 GCCGGAATAC
 ```
 
-Can you see the overlapping parts? If you put the sequences together, the result is be ATTAGACCTGCCGGAATAC.
+Can you see the overlapping parts? If you put the sequences together, the result is be `ATTAGACCTGCCGGAATAC`.
 
 A naive solution would do it the same way you do it in your head: pick one sequence, look through all the others for a match, combine the match with what you already have, look though all the remaining ones for a match again... and so on, until all sequences have been handled or there are no more matches.
 
@@ -139,6 +139,8 @@ Then navigate in your browser to http://localhost:18080/. You will see a list re
 When I first ran the code, by far the slowest thing in the list of jobs was the count() on line 78, taking 2 seconds. count() is not a transformation: it is an action and it is not lazy but eager, forcing all the previously queued operations to be performed. So it is necessary to dig a bit deeper to find out where the true bottleneck is. Clicking on the link reveals a graph of what Spark has been doing:
 
 
+![]({{site.baseurl}}/assets/SparkUI.png)![SparkUI.png]({{site.baseurl}}/assets/SparkUI.png)
+
 
 
 This suggests that the really slow thing is the subtract operation on line 76. Let's look at that code again:
@@ -156,6 +158,7 @@ matrix.cache()
 
 After running everything again, the statistics breakdown looks like this:
 
+![SparkUI_after.png]({{site.baseurl}}/assets/SparkUI_after.png)
 
 So, thanks to caching, the time has been nearly halved.
 
