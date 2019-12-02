@@ -15,7 +15,7 @@ class QuizForUserActor(quiz: Quiz) extends PersistentActor {
 }
 ```
 
-Notice that, whereas a regular Akka actor would just extend `Actor`, this one extends `Persistent Actor`. That's because the quiz state needs to be saved to disk. Akka Persistence provides support for this. However, it is not a relational database. The persistence paradigm is called **Event Sourcing** and it means that changes to state are stored in a log and then replayed whenever the latest state needs to be "recovered". This sounds like recovery could take a long time if a million events have occurred, but it's ok to cheat and take **snapshots** of the state from time to time so that recovery only needs to proceed from those snapshots.
+Notice that, whereas a regular Akka actor would just extend `Actor`, this one extends `PersistentActor`. That's because the quiz state needs to be saved to disk. Akka Persistence provides support for this. However, it is not a relational database. The persistence paradigm is called **Event Sourcing** and it means that changes to state are stored in a log and then replayed whenever the latest state needs to be "recovered". This sounds like recovery could take a long time if a million events have occurred, but it's ok to cheat and take **snapshots** of the state from time to time so that recovery only needs to proceed from those snapshots.
 
 Back to the code. A typical Akka actor will have a method called `receive` where it gets messages and acts on them. For persistent actors, the method is called `receiveCommand`. The core of it looks like this:
 
