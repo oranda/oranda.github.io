@@ -88,7 +88,8 @@ def produceQuizItem(A : QuizItemSource](component: A): QuizItem =
 
 What happens is that the context bound `A : QuizItemSource` establishes an implicit parameter, which is then pulled out by **implicitly**. This syntax is a bit shorter, and looks shorter still if you do not need to call implicitly but are simply passing the implicit parameter down to another function.
 
-![hardHatArea.png]({{site.baseurl}}/assets/hardHatArea.png)
+<img style="float: right;" src="{{site.baseurl}}/assets/hardHatArea.png">
+
 
 <span style="text-decoration: underline">Secondly</span>, it is possible to have a typeclass with **multiple type parameters**. Context bound syntax is not convenient for this case, so, first, let's go back to the original syntax: 
 
