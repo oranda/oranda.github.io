@@ -9,7 +9,7 @@ While writing the Libanius quiz application, I found **typeclasses** to be very 
 ![FindQuizItem.jpg]({{site.baseurl}}/assets/FindQuizItem.jpg)
 
 
-To start with, the core model in Libanius is a simple containment hierarchy as shown in the diagram. The Quiz data structure contains all the information necessary to provide a stream of quiz items to a single user. It is split by topic into QuizGroups, which, for performance reasons, are further partitioned into "memory levels" according to how well the user has learned the items. The flow of a typical request then is Quiz.findQuizItem() followed by QuizGroup.findQuizItem() calls, followed by QuizGroupMemoryLevel.findQuizItem() calls.
+To start with, the core model in Libanius is a simple containment hierarchy as shown in the diagram. The `Quiz` data structure contains all the information necessary to provide a stream of quiz items to a single user. It is split by topic into QuizGroups, which, for performance reasons, are further partitioned into "memory levels" according to how well the user has learned the items. The flow of a typical request then is Quiz.findQuizItem() followed by QuizGroup.findQuizItem() calls, followed by QuizGroupMemoryLevel.findQuizItem() calls.
 
 In practice the findQuizItem() signatures and functionality were similar but not identical. Rather than have them scattered throughout the model classes, it was desirable to put them together in a single place where the similarites could be observed and moulded, avoiding any unnecessary repetition. The same was true of other operations in the model classes. Pulling them out would also solve the problem of too much bloat in the model.
 
