@@ -55,4 +55,4 @@ object LibaniusActorSystem extends AppDependencyAccess {
 }
 ```
 
-That's the guts of it. There is some more code in `OptionsScreen` to create an actor to subscribe to the QUIZ_ITEM_CHANNEL, and actually add the `QuizItem` when it sees the event. For more detail, see the code in the Libanius Android project.
+That's the guts of it. There is some more code in `OptionsScreen` to create an actor to subscribe to the QUIZ_ITEM_CHANNEL, and actually add the `QuizItem` when it sees the event. For more detail, see the code in the [Libanius Android](https://github.com/oranda/libanius-android) project.
