@@ -66,12 +66,12 @@ Notice how the `collect()` function is used to convert an RDD back into a Scala 
 Anyway, now that we have a starting RDD in the program, the first step of the algorithm is to compare each sequence with every other sequence to form a matrix. For each pair, calculate the number of characters at the end of the first sequence that match the characters at the beginning of the second (0 if there is no match). The matrix looks like this:
 
 
-| Key sequence | Other sequences|
-| ------------ | ---------------|
-| ATTAGACCTG   | (CCTGCCGGAA, 4), (AGACCTGCCG, 7), (GCCGGAATAC, 1)|
-| CCTGCCGGAA   | (ATTAGACCTG, 0), (AGACCTGCCG, 0), (GCCGGAATAC, 7)|
-| AGACCTGCCG   | (ATTAGACCTG, 0), (CCTGCCGGAA, 7), (GCCGGAATAC, 4)|
-| GCCGGAATAC   | (ATTAGACCTG, 0), (CCTGCCGGAA, 1), (AGACCTGCCG, 0)|
+| Key sequence |     Other sequences|
+| ------------ |     ---------------|
+| ATTAGACCTG   |     (CCTGCCGGAA, 4), (AGACCTGCCG, 7), (GCCGGAATAC, 1)|
+| CCTGCCGGAA   |     (ATTAGACCTG, 0), (AGACCTGCCG, 0), (GCCGGAATAC, 7)|
+| AGACCTGCCG   |     (ATTAGACCTG, 0), (CCTGCCGGAA, 7), (GCCGGAATAC, 4)|
+| GCCGGAATAC   |     (ATTAGACCTG, 0), (CCTGCCGGAA, 1), (AGACCTGCCG, 0)|
 
 There are different ways you can build this matrix. Let's assume we have a function matchingLength that calculates the number of characters that overlap between two sequences. Then we can use this code:
 
@@ -88,12 +88,12 @@ The nice thing is that if you are used to dealing with Scala collections, this w
 The next step in the algorithm is this: for each row in the matrix, eliminate all values except the one with the longest match. Also eliminate inadequate matches, i.e. where the common part is not more than half the length of a sequence. The reduced matrix looks like:
 
 
-| Key sequence | Sequence with overlap length|
-| ------------ | ----------------------------|
-| ATTAGACCTG   | (AGACCTGCCG, 7)|
-| CCTGCCGGAA   | (GCCGGAATAC, 7)|
-| AGACCTGCCG   | (CCTGCCGGAA, 7)|
-| GCCGGAATAC   | (CCTGCCGGAA, 1)|
+| Key sequence |    Sequence with overlap length|
+| ------------ |    ----------------------------|
+| ATTAGACCTG   |    (AGACCTGCCG, 7)|
+| CCTGCCGGAA   |    (GCCGGAATAC, 7)|
+| AGACCTGCCG   |    (CCTGCCGGAA, 7)|
+| GCCGGAATAC   |    (CCTGCCGGAA, 1)|
 
 This transformation can be achieved using the mapValues function:
 
