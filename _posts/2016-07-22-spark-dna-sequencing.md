@@ -87,13 +87,14 @@ The nice thing is that if you are used to dealing with Scala collections, this w
 
 The next step in the algorithm is this: for each row in the matrix, eliminate all values except the one with the longest match. Also eliminate inadequate matches, i.e. where the common part is not more than half the length of a sequence. The reduced matrix looks like:
 
+<table>
+  <tr><th>Key sequence</th><th>Sequence with overlap length</th></tr>
+  <tr><td>ATTAGACCTG</td><td>(AGACCTGCCG, 7)</td></tr>
+  <tr><td>CCTGCCGGAA</td><td>(GCCGGAATAC, 7)</td></tr>
+  <tr><td>AGACCTGCCG</td><td>(CCTGCCGGAA, 7)</td></tr>
+  <tr><td>GCCGGAATAC</td><td>(CCTGCCGGAA, 1)</td></tr>
+</table>
 
-| Key sequence | Sequence with overlap length |
-|------------|----------------------------|
-| ATTAGACCTG   | (AGACCTGCCG, 7) |
-| CCTGCCGGAA   | (GCCGGAATAC, 7) |
-| AGACCTGCCG   | (CCTGCCGGAA, 7) |
-| GCCGGAATAC   | (CCTGCCGGAA, 1) |
 
 This transformation can be achieved using the mapValues function:
 
