@@ -65,7 +65,7 @@ Notice how the `collect()` function is used to convert an RDD back into a Scala 
 
 Anyway, now that we have a starting RDD in the program, the first step of the algorithm is to compare each sequence with every other sequence to form a matrix. For each pair, calculate the number of characters at the end of the first sequence that match the characters at the beginning of the second (0 if there is no match). The matrix looks like this:
 
-<table>
+<table cellpadding="10">
   <tr><th>Key sequence</th><th>Other sequences</th></tr>
   <tr><td>ATTAGACCTG</td><td>(CCTGCCGGAA, 4), (AGACCTGCCG, 7), (GCCGGAATAC, 1)</td></tr>
   <tr><td>CCTGCCGGAA</td><td>(ATTAGACCTG, 0), (AGACCTGCCG, 0), (GCCGGAATAC, 7)</td></tr>
