@@ -65,13 +65,13 @@ Notice how the `collect()` function is used to convert an RDD back into a Scala 
 
 Anyway, now that we have a starting RDD in the program, the first step of the algorithm is to compare each sequence with every other sequence to form a matrix. For each pair, calculate the number of characters at the end of the first sequence that match the characters at the beginning of the second (0 if there is no match). The matrix looks like this:
 
-
-| Key sequence | Other sequences |
-|------------|---------------|
-| ATTAGACCTG | (CCTGCCGGAA, 4), (AGACCTGCCG, 7), (GCCGGAATAC, 1) |
-| CCTGCCGGAA | (ATTAGACCTG, 0), (AGACCTGCCG, 0), (GCCGGAATAC, 7) |
-| AGACCTGCCG | (ATTAGACCTG, 0), (CCTGCCGGAA, 7), (GCCGGAATAC, 4) |
-| GCCGGAATAC | (ATTAGACCTG, 0), (CCTGCCGGAA, 1), (AGACCTGCCG, 0) |
+<table>
+  <tr><th>Key sequence</th><th>Other sequences</th></tr>
+  <tr><td>ATTAGACCTG</td><td>(CCTGCCGGAA, 4), (AGACCTGCCG, 7), (GCCGGAATAC, 1)</td></tr>
+  <tr><td>CCTGCCGGAA</td><td>(ATTAGACCTG, 0), (AGACCTGCCG, 0), (GCCGGAATAC, 7)</td></tr>
+  <tr><td>AGACCTGCCG</td><td>(ATTAGACCTG, 0), (CCTGCCGGAA, 7), (GCCGGAATAC, 4)</td></tr>
+  <tr><td>GCCGGAATAC</td><td>(ATTAGACCTG, 0), (CCTGCCGGAA, 1), (AGACCTGCCG, 0)</td></tr>
+</table>
 
 There are different ways you can build this matrix. Let's assume we have a function matchingLength that calculates the number of characters that overlap between two sequences. Then we can use this code:
 
@@ -163,4 +163,3 @@ After running everything again, the statistics breakdown looks like this:
 So, thanks to caching, the time has been nearly halved.
 
 There are still many optimizations possible and perhaps you can think of a better algorithm entirely. However, hopefully this post has shown how Spark can be useful for parallelizing the solution to a simple problem. Again, the full code can be found [here](https://github.com/oranda/fastamerge).
-
