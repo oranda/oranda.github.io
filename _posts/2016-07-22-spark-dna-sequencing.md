@@ -73,7 +73,7 @@ Anyway, now that we have a starting RDD in the program, the first step of the al
   <tr><td>GCCGGAATAC</td><td>(ATTAGACCTG, 0), (CCTGCCGGAA, 1), (AGACCTGCCG, 0)</td></tr>
 </table>
 
-There are different ways you can build this matrix. Let's assume we have a function matchingLength that calculates the number of characters that overlap between two sequences. Then we can use this code:
+There are different ways you can build this matrix. Let's assume we have a function `matchingLength` that calculates the number of characters that overlap between two sequences. Then we can use this code:
 
 ```scala
 val seqList = seqSet.collect().toList
@@ -83,7 +83,7 @@ matrix.map {
 }
 ```
 
-The nice thing is that if you are used to dealing with Scala collections, this will look very familiar. We are actually operating not on Scala collections but RDDs. More good news: RDDs are based on the FP technique of lazy evaluation, so no time is wasted on building intermediate collections. The work is postponed until you call collect() or something similar.
+The nice thing is that if you are used to dealing with Scala collections, this will look very familiar. We are actually operating not on Scala collections but RDDs. More good news: RDDs are based on the FP technique of lazy evaluation, so no time is wasted on building intermediate collections. The work is postponed until you call `collect()` or something similar.
 
 The next step in the algorithm is this: for each row in the matrix, eliminate all values except the one with the longest match. Also eliminate inadequate matches, i.e. where the common part is not more than half the length of a sequence. The reduced matrix looks like:
 
@@ -96,7 +96,7 @@ The next step in the algorithm is this: for each row in the matrix, eliminate al
 </table>
 
 
-This transformation can be achieved using the mapValues function:
+This transformation can be achieved using the `mapValues` function:
 
 ```scala
 val matrixMaximums = matrix.mapValues(seq => seq.maxBy(_._2))
@@ -115,11 +115,11 @@ val values: RDD[String] = matrix.values.map(_._1)
 val startingSeqs: RDD[String] = matrix.keys.subtract(values)
 ```
 
-subtract is one of the many useful transformations available on an RDD, and does what you would expect. If you want to see all the available RDD transformations check the Spark API. There are examples of using each one here.
+`subtract` is one of the many useful transformations available on an RDD, and does what you would expect. If you want to see all the available RDD transformations check the Spark API. There are examples of using each one here.
 
 We extract the starting sequence (signalling an error if there wasn't one and only one), and then "follow" that through the matrix: from ATTAGACCTG to AGACCTGCCG to CTGCCGGAA to GCCGGAATAC where the trail ends. To implement this, we may call lookup on the RDD repeatedly inside of a recursive function that builds the String. Each sequence found is appended using the given length (7 in all cases here) to get a final sequence of ATTAGACCTGCCGGAATAC.
 
-To see the final result we can just use println . But how to run it? First compile it to a jar file. sbt is a good choice for building. The full code is available as an sbt project here. When you've cloned or downloaded that, call sbt package in the normal way and then issue the command:
+To see the final result we can just use `println`. But how to run it? First compile it to a jar file. sbt is a good choice for building. The full code is available as an sbt project here. When you've cloned or downloaded that, call `sbt package` in the normal way and then issue the command:
 
 ```conf
 spark-submit --class "MergeFasta" --master local[4] target/scala-2.11/mergefasta_2.11-0.1.jar
