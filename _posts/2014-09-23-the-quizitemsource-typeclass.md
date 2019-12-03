@@ -6,8 +6,7 @@ When talking about scaling an application, people are usually referring to perfo
 
 While writing the Libanius quiz application, I found **typeclasses** to be very useful in decoupling behaviour from the model classes. Typeclasses (formally spelt "type classes") originated in Haskell, but can be used in Scala too, being a language that supports FP well. I'll describe one use of typeclasses in Libanius, an example that should be less "theoretical" and more extended than the ones that are usually given.
 
-![FindQuizItem.jpg]({{site.baseurl}}/assets/FindQuizItem.jpg)
-
+<img src="{{site.baseurl}}/assets/FindQuizItem.jpg" style="float:right;width:400;height:332"> 
 
 To start with, the core model in Libanius is a simple containment hierarchy as shown in the diagram. The `Quiz` data structure contains all the information necessary to provide a stream of quiz items to a single user. It is split by topic into `QuizGroup`s, which, for performance reasons, are further partitioned into "memory levels" according to how well the user has learned the items. The flow of a typical request then is `Quiz.findQuizItem()` followed by `QuizGroup.findQuizItem()` calls, followed by `QuizGroupMemoryLevel.findQuizItem()` calls.
 
