@@ -34,6 +34,7 @@ GEM
       sinatra-contrib (~> 1.4)
     jekyll-feed (0.13.0)
       jekyll (>= 3.7, < 5.0)
+    jekyll-paginate (1.1.0)
     jekyll-sass-converter (1.5.2)
       sass (~> 3.4)
     jekyll-theme-clean-blog (4.0.9)
@@ -50,7 +51,7 @@ GEM
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
     public_suffix (4.0.1)
-    rack (1.6.11)
+    rack (1.6.12)
     rack-protection (1.5.5)
       rack
     rack-test (1.1.0)
@@ -91,6 +92,7 @@ DEPENDENCIES
   jekyll (~> 3.8.5)
   jekyll-admin
   jekyll-feed (~> 0.12)
+  jekyll-paginate
   jekyll-theme-clean-blog (= 4.0.9)
   tzinfo (~> 1.2)
   tzinfo-data
