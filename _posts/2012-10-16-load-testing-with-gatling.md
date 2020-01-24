@@ -1,6 +1,7 @@
 ---
 title: Load Testing with Gatling
 published: true
+background: '/assets/mountain-690122_1920.jpg'
 ---
 Recently, I've been working with an organization that had a huge increase in traffic due to mobile phones, and needed to determine how its legacy application would handle the millions of users flooding into its servers. They were accustomed to using JMeter, as it's a full-featured mature Java application for load testing and also useful for functional testing.
 
