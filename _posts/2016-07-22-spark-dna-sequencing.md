@@ -1,6 +1,7 @@
 ---
 published: true
 title: 'Spark, a Worked Example: Speeding Up DNA Sequencing'
+background: '/assets/mountain-690122_1920.jpg'
 ---
 Processing huge amounts of data takes time. To do it efficiently we can write code in a functional style and use the opportunities for parallelism that FP allows us. Still, if we want to spread the code over thousands of processors, there is extra work involved in distributing it and managing failure scenarios.
 
