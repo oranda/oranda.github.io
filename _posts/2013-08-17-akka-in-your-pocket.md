@@ -1,6 +1,7 @@
 ---
 published: true
 title: Akka in Your Pocket
+background: '/assets/mountain-690122_1920.jpg'
 ---
 Although Akka is usually thought of in connection with massively scalable applications on the server side, it is a generally useful model for concurrency that can be deployed in an ordinary PC application or even a mobile app.
 
