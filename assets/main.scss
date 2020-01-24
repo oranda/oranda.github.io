@@ -141,8 +141,7 @@ img::-moz-selection { color: #e8ffff; background: transparent; }
   #mainNav.is-visible { /* if the user changes the scrolling direction, we show the header */ -webkit-transform: translate3d(0, 100%, 0); -moz-transform: translate3d(0, 100%, 0); -ms-transform: translate3d(0, 100%, 0); -o-transform: translate3d(0, 100%, 0); transform: translate3d(0, 100%, 0); } }
 header.masthead { margin-bottom: 50px; background: no-repeat center center; background-color: #ffffff; background-attachment: scroll; position: relative; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; }
 
-header.masthead .overlay { position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-color: #
-  ; opacity: 0.5; }
+header.masthead .overlay { position: absolute; top: 0; left: 0; height: 100%; width: 100%; opacity: 0.5; }
 
 header.masthead .page-heading, header.masthead .post-heading, header.masthead .site-heading { padding: 200px 0 150px; color: #000; }
 
