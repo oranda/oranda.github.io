@@ -1,6 +1,7 @@
 ---
 published: true
 title: The Akka Event Bus on Android
+background: '/assets/mountain-690122_1920.jpg'
 ---
 Event buses are useful for keeping components in a system loosely coupled, and we generally see them in two areas: distributed systems, and UIs. This post is about the use of an event bus in a UI, specifically Android.
 
