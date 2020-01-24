@@ -1,6 +1,7 @@
 ---
 published: true
 title: Speaking Actors Living in the Phone
+background: '/assets/mountain-690122_1920.jpg'
 ---
 A Hollywood actor who couldn't speak wouldn't get far. How soon before we say the same of mobile apps?
 
