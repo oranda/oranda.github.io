@@ -1,6 +1,7 @@
 ---
 published: true
 title: Using 2.10 Futures in Android
+background: '/assets/mountain-690122_1920.jpg'
 ---
 In an Android app, it is usually necessary to run some tasks in the background so they don't block the UI. The standard way to do this in Java code is with an AsyncTask. Basically you fill out the body of an AsyncTask with two parts: what needs to happen in the background, and what needs to happen in the foreground once that is complete. The return value of the background part is passed as a parameter to the foreground part:
 
