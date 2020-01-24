@@ -1,6 +1,7 @@
 ---
 published: true
 title: The QuizItemSource Typeclass
+background: '/assets/mountain-690122_1920.jpg'
 ---
 When talking about scaling an application, people are usually referring to performance: how to design the software so that limited hardware can support millions of users? But it is also important to be able to scale the _feature set_ of an application. If users say they want a new button, you don't want to have to make extensive refactorings of your core model classes as is all too often the case in industry. The key to both of these related demands is **decoupling**.
 
