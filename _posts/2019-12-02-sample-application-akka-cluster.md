@@ -1,6 +1,7 @@
 ---
 published: true
 title: 'A Sample Application Using Akka Cluster: Libanius, the Quiz'
+background: '/assets/mountain-690122_1920.jpg'
 ---
 
 Let's describe a sample Akka application. The Libanius Scala library holds an immutable `Quiz` class with associated functionality. A Web UI accesses it on behalf of users via Akka.
