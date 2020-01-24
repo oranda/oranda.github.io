@@ -4,6 +4,7 @@ title: 'Keywords as Clutter: Doing More with Less'
 date: '2012-09-30 09:55:00 +0100'
 categories: jekyll update
 published: true
+background: '/assets/mountain-690122_1920.jpg'
 ---
 When I first started writing Scala, I found it very easy to code in a Java-like way. Perhaps a little too easy in fact. The problem is that if you persist in writing code in an imperative style, you miss a lot of the FP (functional) advantages that Scala provides.
 
