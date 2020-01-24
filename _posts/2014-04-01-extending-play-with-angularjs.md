@@ -1,6 +1,7 @@
 ---
 published: true
 title: 'Extending Play with AngularJS: Nested MVCs in a Webapp'
+background: '/assets/mountain-690122_1920.jpg'
 ---
 I finally got a bit of spare time to tighten up the JavaScript in [Libanius-Play](https://github.com/oranda/libanius-play), the web interface to my quiz application. For a long time, I was dissatisfied with the way data was being passed around from server to client and then back from client to server: there was too much repetition. The JavaScript library jQuery was of use to create AJAX callbacks, but still, any time there was a new parameter, it had to be added in too many places.
 
