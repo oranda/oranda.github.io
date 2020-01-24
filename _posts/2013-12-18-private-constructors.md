@@ -1,6 +1,7 @@
 ---
 published: true
 title: Private Constructors
+background: '/assets/mountain-690122_1920.jpg'
 ---
 Private constructors: mostly you won't need them. Commonly in Scala we just define a class and let the constructor and parameters be exposed to the world:
 
