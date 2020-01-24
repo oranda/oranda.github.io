@@ -1,6 +1,7 @@
 ---
 published: true
 title: 'Scala.js and React: Building an Application for the Web'
+background: '/assets/mountain-690122_1920.jpg'
 ---
 [Scala.js](http://scala.js/) compiles Scala code to JavaScript. I noticed on the [Reactive Programming course at Coursera](https://www.coursera.org/course/reactive) that Scala.js has been integrated into it to implement a basic spreadsheet on a Web page, suggesting good support from the Scala establishment. The principal developer of Scala.js is a collaborator of Martin Odersky at EPFL, Sébastien Doeraene, and [he will be speaking about it next month (June 2015) at Scala Days](http://event.scaladays.org/scaladays-amsterdam-2015#!#schedulePopupExtras-6936) in Amsterdam.
 
