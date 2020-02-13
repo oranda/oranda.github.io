@@ -27,12 +27,14 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://oranda.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jjtmccabe 
 github_username:  oranda
+image: /assets/SparkUI.png
 
 # Build settings
 theme: jekyll-theme-clean-blog
 plugins:
   - jekyll-feed
-  - jekyll-paginate  
+  - jekyll-paginate
+
 paginate: 5
 paginate_path: "/posts/page:num/"
 
