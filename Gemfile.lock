@@ -1,8 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.7.0)
-      public_suffix (>= 2.0.2, < 5.0)
+    addressable (2.8.1)
+      public_suffix (>= 2.0.2, < 6.0)
     backports (3.15.0)
     colorator (1.1.0)
     concurrent-ruby (1.1.5)
@@ -34,6 +34,7 @@ GEM
       sinatra-contrib (~> 1.4)
     jekyll-feed (0.13.0)
       jekyll (>= 3.7, < 5.0)
+    jekyll-paginate (1.1.0)
     jekyll-sass-converter (1.5.2)
       sass (~> 3.4)
     jekyll-theme-clean-blog (4.0.9)
@@ -49,7 +50,7 @@ GEM
     multi_json (1.14.1)
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
-    public_suffix (4.0.1)
+    public_suffix (5.0.0)
     rack (1.6.11)
     rack-protection (1.5.5)
       rack
@@ -91,6 +92,7 @@ DEPENDENCIES
   jekyll (~> 3.8.5)
   jekyll-admin
   jekyll-feed (~> 0.12)
+  jekyll-paginate
   jekyll-theme-clean-blog (= 4.0.9)
   tzinfo (~> 1.2)
   tzinfo-data
